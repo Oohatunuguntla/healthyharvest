@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+  <body>
+
+    <form action="http://localhost:5000/editprofile" method="POST">
+      First name: <input type="text" name="fname" value="#{user.fname}"> <br>
+      Last name: <input type="text" name="lname" value="#{user.lname}"><br>
+      mobilenumber:<input type="number" name="mobilenumber" value="#{user.number}"><br>
+      email:<input type="email" name="email" value="#{user.email}"><br>
+      Street: <input type="text" name="street" value="#{user.street}"><br>
+      city:<input type="text" name="city" value="#{user.city}"><br>
+      state: <input type="text" name="state" value="#{user.state}"><br>
+      pincode:<input type="number" name="pincode" value="#{user.pincode}"><br>
+      type:
+      <select onchange="yesnoCheck(this);" required name="type">
+          <option value="#{user.type}">select your type</option>
+        <option value="farmer">farmer</option>
+        <option value="agricultureexpert">agricultureexpert</option>
+        <option value="customer">customer</option>
+    </select>
+    
+
+
+
+    <div id="farmer" style="display: none;">
+        <h1>farmer</h1>
+    </div>
+
+
+    <div id="agricultureexpert" style="display: none;">
+        Qualification:<input type ="text" name="qualification">
+        Upload your qualification certificate:<input type="file" name="qualificationcertificate">
+
+    </div>
+
+     <button type="submit">Send to backend</button>
+
+    </form>
+
+
+  </body>
+
+
+  <script>
+    function yesnoCheck(that) {
+    if (that.value == "farmer") {
+        document.getElementById("farmer").style.display = "block";
+        document.getElementById("agricultureexpert").style.display = "none";
+        document.getElementById("customer").style.display = "none";
+    } 
+    else if (that.value == "agricultureexpert") {
+        document.getElementById("agricultureexpert").style.display = "block";
+        document.getElementById("farmer").style.display = "none";
+        document.getElementById("customer").style.display = "none";    
+    } 
+    else {
+        document.getElementById("agricultureexpert").style.display = "none";
+        document.getElementById("farmer").style.display = "none";
+        document.getElementById("customer").style.display = "block";    
+    }
+}
+  </script>
+</html>
