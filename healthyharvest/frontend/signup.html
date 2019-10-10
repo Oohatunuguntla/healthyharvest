@@ -1,56 +1,268 @@
 <!DOCTYPE html>
-  <body>
-
-    <form action="http://localhost:5000/signup" method="POST">
-      First name: <input type="text" name="fname"><br>
-      Last name: <input type="text" name="lname"><br>
-      mobilenumber:<input type="number" name="mobilenumber"><br>
-      email:<input type="email" name="email"><br>
-      Street: <input type="text" name="street"><br>
-      city:<input type="text" name="city"><br>
-      state: <input type="text" name="state"><br>
-      pincode:<input type="number" name="pincode"><br>
-      type:
-      <select onchange="yesnoCheck(this);" required name="type">
-          <option value="">select your type</option>
-        <option value="farmer">farmer</option>
-        <option value="agricultureexpert">agricultureexpert</option>
-        <option value="customer">customer</option>
-    </select>
-    
-
-
-
-    <div id="farmer" style="display: none;">
-        <h1>farmer</h1>
-    </div>
-
-
-    <div id="agricultureexpert" style="display: none;">
-        Qualification:<input type ="text" name="qualification">
-        Upload your qualificatio certificate:<input type="file" name="qualificationcertificate">
-
-    </div>
-
-     <button type="submit">Send to backend</button>
-
-    </form>
-
-
-  </body>
-
-
-  <script>
-    function yesnoCheck(that) {
-    if (that.value == "farmer") {
-        document.getElementById("farmer").style.display = "block";
-        document.getElementById("agricultureexpert").style.display = "none";
-
-    } 
-    else if (that.value == "agricultureexpert") {
-        document.getElementById("agricultureexpert").style.display = "block";
-        document.getElementById("farmer").style.display = "none";
-    } 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js" charset="UTF-8"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+  body, html {
+    height: 120%;
+    margin: 0;
 }
-  </script>
+body{ 
+  background: linear-gradient(to bottom, rgba(152, 216, 166, 0), rgb(203, 233, 122)), url('images/bg-01.jpg') no-repeat center center fixed; 
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+  max-width:100%;
+  max-height:100%;
+  position:relative;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+label {
+  display: block;
+  position: relative;
+  margin: 40px 0px;
+}
+.label-txt {
+  position: absolute;
+  top: -1.6em;
+  padding: 10px;
+  font-family: sans-serif;
+  font-size: 1em;
+  letter-spacing: 1px;
+  color: green;
+  transition: ease .3s;
+}
+.input {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  outline: none;
+  
+}
+input[type=file],input[type=submit] {
+    width: 40%;
+    border: 0.01em solid #ccc;
+    border-radius: 0.04em;
+    resize: vertical;
+}
+.line-box {
+  position: relative;
+  width: 50%;
+  height: 2px;
+  background: #BCBCBC;
+}
+
+.line {
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  top: 0px;
+  left: 50%;
+
+  transform: translateX(-50%);
+  background: #8BC34A;
+  transition: ease .6s;
+}
+
+.input:focus + .line-box .line {
+  width: 100%;
+}
+
+.label-active {
+  top: -3em;
+}
+
+button {
+  display: inline-block;
+  padding: 12px 24px;
+  
+  font-weight: bold;
+  
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: ease .3s;
+  background: green;
+  color:white;
+}
+
+button:hover {
+ color: green;
+ background: white;
+  
+}
+
+.card {
+    box-shadow: 0 0.54rem 0.8rem 0 green;
+    transition: 0.3s;
+    width: 40%;
+    
+    border-radius: 1rem;
+    position:absolute;
+    left : 30%;
+    top : 2%;
+    background-color:white;
+    opacity:0.5
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(109,196,39,0.2);
+
+}
+
+
+
+
+.card-css{
+  
+  box-shadow: 0 0.2rem 0.2rem 0 green;
+  transition: 0.3s;
+  
+  border-radius: 0.1rem;
+  background-color: white;
+  opacity: 0.4;
+  max-width:50%;
+  max-height:50%;
+  
+
+}
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.container{
+padding: 25px;   
+}    
+</style>
+</head>
+<body>
+  
+    <div class="bg">
+        <div class="card">
+            <div class="container">
+              <form action="http://localhost:5000/signup" method="POST" autocomplete="off">
+              
+                <strong style="font-family: sans-serif;font-size: 1.5em;color: green;left:15%;position :relative" >SIGNUP</strong> 
+                <label>
+                <p class="label-txt">Name</p>
+                <input type="text" name="name" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label>
+              <label>
+                <p class="label-txt" >Email</p>
+                <input type="email" name="email" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label>
+              <label>
+                <p class="label-txt">password</p>
+                <input type="password" name="password" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label>
+              <label>
+                <p class="label-txt" >mobile number</p>
+                <input type="text" name="mobilenumber" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label>
+              
+              <label>
+                <p class="label-txt" >City</p>
+                <input type="text" name="city" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label>
+              
+              <label>
+                <p class="label-txt">State</p>
+                <input type="text"  name="state" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label>
+              <div id="farmer" style="display: none;">
+
+              <label>
+                <p class="label-txt" >latitude</p>
+                <input type="text"name="latitude" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label>
+              </div>
+              <div id="Agricultureexpert" style="display: none;">
+
+              <label>
+                <p class="label-txt">educational qualification</p>
+                <input type="text" name="qualification" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label>
+              
+              <!-- <label>
+                <p class="label-txt" >qualification certificate</p>
+                <input type="file" name="certificate" class="input">
+                <div class="line-box">
+                  <div class="line"></div>
+                </div>
+              </label> -->
+
+            </div>
+
+
+
+              <div class="col-75"style="font-family: sans-serif;font-size: 1em;color: green;" >
+                <select onchange=yesnoCheck(this); required name="type">
+                    <option value="">Select type</option>
+                   <option value="Farmer">Farmer</option>
+                   <option value="Agricultureexpert">Agricultureexpert</option>
+                   <option value="Customer">Customer</option>
+                </select>
+              </div>
+
+              <br>
+              <button type="submit">submit</button>
+              </form>           
+
+            </div>
+        </div>
+      </div>
+
+    
+      <script>
+        function yesnoCheck(that) {
+        if (that.value == "farmer") {
+            document.getElementById("farmer").style.display = "block";
+            document.getElementById("Agricultureexpert").style.display = "none";
+    
+        } 
+        else if (that.value == "Agricultureexpert") {
+            document.getElementById("Agricultureexpert").style.display = "block";
+            document.getElementById("farmer").style.display = "none";
+        }
+        else{
+          document.getElementById("Agricultureexpert").style.display = "none";
+          document.getElementById("farmer").style.display = "none";
+        } 
+    }
+      </script>
+    
+</body>
 </html>

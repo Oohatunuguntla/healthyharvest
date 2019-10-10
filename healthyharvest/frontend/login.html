@@ -1,9 +1,94 @@
 <!DOCTYPE html>
+<style>
+body {
+  text-align: center;
+
+ 
+  background-attachment: fixed;
+  width:100%;
+  height: 500px; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover;
+
+}
+form {
+  display: inline-block;
+}
+.card {
+  
+  box-shadow: 0 4px 8px 0 green;
+  transition: 0.3s;
+  width: 40%;
+  border-radius: 5px;
+  
+  left:75px;
+  top:150px;
+  position:relative;
+  width: 400px;
+  height: 500px;
+  
+
+}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+ color: white;
+  
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+
+  cursor: pointer;
+  border-radius: 8px;
+  height:50px;
+  width:100px;
+}
+#corners2 {
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px;
+  width: 150px;
+  height: 3px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.container {
+  padding: 2px 16px;
+}
+</style>
   <body>
     <form action="http://localhost:5000/login" method="POST">
-      First name: <input type="text" name="fname"><br>
-      Last name: <input type="text" name="lname"><br>
-     <button type="submit">Login</button>
+      <div clss="container" >
+      <div class="card">
+     <table>
+      <tr><h2 style="font-family: Trebuchet MS, sans-serif ;color:green"> LOG IN</h2></tr>
+      <tr>
+      
+      </tr>
+      <tr></tr>
+              <tr>
+               <td><h4 style="font-family: Trebuchet MS, sans-serif ;color:green"> First name:</h4></td> 
+               <td> <input type="text" id="corners2" name="fname" ></td>
+              </tr>
+              <tr></tr>
+              <tr>
+                  <td><h4 style="font-family: Trebuchet MS, sans-serif ;color:green"> Last Name:</h4></td> 
+                  <td> <input type="text" id="corners2" name="lname" ></td>
+                 </tr>
+                 <tr></tr><tr></tr><tr></tr>
+                 <tr><TD></TD><td> 
+                    <button class="button" value="submit"><h4 style="font-family: Trebuchet MS, sans-serif ">LOGIN</h4></button>
+                     <td>
+                   </tr>
+                 </table>
+                 </div>
+                </div>
     </form>
   </body>
 </html>

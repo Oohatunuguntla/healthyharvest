@@ -37,28 +37,27 @@ app.post('/api/posts', verifyToken, (req, res) => {
 
 app.post('/signup', (req, res) => {
     var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+    var url = "mongodb://localhost:27017/";
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("healthyharvest");
   
-  var insertuser={firstName:`${req.body.fname}`,
-                  lastName: `${req.body.lname}`,
+  var insertuser={name:`${req.body.name}`,
                   mobilenumber:`${req.body.mobilenumber}`,
                   email:`${req.body.email}`,
-                  street:`${req.body.street}`,
                   city:`${req.body.city}`,
                   state:`${req.body.state}`,
-                  pincode:`${req.body.pincode}`,
+                  password:`${req.body.password}`,
                   type:`${req.body.type}`,
+                  
 
 }
-  if (`${req.body.type}`=='agricultureexpert')
+  if (`${req.body.type}`=='Agricultureexpert')
   {
     var insertagricultureexpert={
       qualification:`${req.body.qualification}`,
-      qualificationcertificate:`${req.body.qualificationcertificate}`
+      
     }
     dbo.collection("agricultureexpert").insertOne(insertagricultureexpert,function(err,res){
       if (err) throw err;
@@ -73,7 +72,7 @@ MongoClient.connect(url, function(err, db) {
   });
 }); 
    
-      res.sendFile(__dirname + "/frontend/login.html");
+      res.sendFile(__dirname + "/frontend/loginresponsive.html");
     
   });
 
@@ -81,39 +80,55 @@ MongoClient.connect(url, function(err, db) {
 
 
   app.post('/login', (req, res) => {
-    console.log('hospital-building')
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     var result1
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("healthyharvest");
-    var query = {firstName:`${req.body.fname}`,lastName: `${req.body.lname}`};
+    var query = {email:`${req.body.email}`,password: `${req.body.password}`,type:`${req.body.type}`};
     dbo.collection("user").find(query).toArray(function(err, result) {
       if (err) throw err;
       console.log(result);
       result1=result[0]
+      console.log(result1)
+      if(result1){
+        jwt.sign({result1}, 'secretkey', result1,(err, token,) => {
+          // res.json({
+          //   token
+          // });
+          console.log("not null")
+          // console.log(token)
+          if (`${req.body.type}`== "Farmer"){
+            db.close();
+            res.sendFile(__dirname + "/frontend/farmer.html");
+          }
+          if (`${req.body.type}`== "Agricultureexpert"){
+            db.close();
+            res.sendFile(__dirname + "/frontend/agricultureexpert.html");
+          }
+          if (`${req.body.type}`== "Customer"){
+            db.close();
+            res.sendFile(__dirname + "/frontend/customer.html");
+          }
+          
+        });
+      }  
+    else{
+      // window.alert("invalid email or password or type");
       db.close();
+      res.sendFile(__dirname + "/frontend/loginresponsive.html");
+    }
+
     });
   });
-  jwt.sign({result1}, 'secretkey', (err, token) => {
-    // res.json({
-    //   token
-    // });
-    if (result1[type]== "farmer"){
-      res.sendFile(__dirname + "/frontend/farmer.html");
-    }
-    if (result1[type]== "agricultureexpert"){
-      res.sendFile(__dirname + "/frontend/agricultureexpert.html");
-    }
-    if (result1[type]== "customer"){
-      res.sendFile(__dirname + "/frontend/customer.html");
-    }
-    
-  });
+  
 });
+app.post('/logout', (req, res) => {
+  console.log('fghjk')
+  res.sendFile(__dirname + "/frontend/agriculture.html");
 
-
+})
 
 // FORMAT OF TOKEN
 // Authorization: Bearer <access_token>
