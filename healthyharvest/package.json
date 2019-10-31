@@ -1,21 +1,24 @@
 {
   "name": "healthyharvest",
   "version": "1.0.0",
-  "description": "healthyharvest",
-  "main": "login.js",
+  "description": "agriculture website nodejs",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
   },
-  "author": "Ooha",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.1",
-    "uuid": "^3.3.3"
+    "js-datepicker": "^5.0.3",
+    "mongodb": "^2.2.33",
+    "mongoose": "^5.7.7",
+    "morgan": "^1.9.1",
+    "pikaday": "^1.8.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.2"
+    "nodemon": "^1.19.4"
   }
 }
