@@ -10,7 +10,6 @@ const agroexpertschema=mongoose.Schema({
         type:String,
         required:true
 
-    },
-    
+    }, 
 });
-module.exports=mongoose.model('agroexpert',agroexpertschema);
+module.exports=mongoose.model('agroexpert',agroexpertschema); 

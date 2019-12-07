@@ -11,10 +11,19 @@ const availrequestdetails = mongoose.model('availrequestdetails');
 //const Service=require("../models/service");
 const Service = mongoose.model('service');
 
-router.get('/map',usercontroller.user_map);
+router.get('/map',usercontroller.user_map); 
 
 router.post('/signup',usercontroller.user_signup);
+
 router.post('/login',usercontroller.user_login);
+
+router.get('/view_profile',usercontroller.view_profile);
+
+router.post('/edit-profilecustomers',usercontroller.edit_profile);
+
+router.post('/edit-profileagriexperts',usercontroller.edit_profile);
+
+router.post('/edit-profilefarmers',usercontroller.edit_profile);
 
 router.get("/viewposts",usercontroller.user_view);
 
@@ -22,21 +31,43 @@ router.post("/service",usercontroller.user_service);
 
 router.get('/confirmation/:token', usercontroller.confirmationPost);
 //router.post('/resend', usercontroller.resendTokenPost);
+
 router.get('/signup',(request,response)=>{
     response.render('signup',{layout:false});
 })
+
 router.get('/login',(request,response)=>{
     response.render('login',{layout:false});
 })
+
+
+router.get('/edit-profilecustomers',(request,response)=>{
+    var user = req.user();
+    response.render('edit-profilecustomers',{layout:false,user: User});
+})
+
+router.get('/edit-profileagriexperts',(request,response)=>{
+    var user = req.user();
+    response.render('edit-profileagriexperts',{layout:false, user: User});
+})
+
+router.get('/edit-profilefarmers',(request,response)=>{
+    var user = req.user();
+    response.render('edit-profilefarmers',{layout:false,user: User});
+})
+
 router.get('/home',(request,response)=>{
     response.render('index',{layout:false});
 })
+
 router.get('/farmer/:email',(request,response)=>{
     response.render('farmer',{'email':request.params.email,layout:false});
 })
+
 router.get('/agro/:email',(request,response)=>{
     response.render('agri_expert',{'email':request.params.email,layout:false});
 })
+
 router.get('/customer/:email',(request,response)=>{
     response.render('customer',{'email':request.params.email,layout:false});
 })
@@ -148,6 +179,7 @@ router.get('/list/:email',function(req,res){
     })
 
 });
+
 router.get('/list/sentreq/:id',function(req,res){
     console.log(req.params._id)
     console.log('req sent')

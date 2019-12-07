@@ -2,7 +2,6 @@ const mongoose=require("mongoose");
 const bcrypt=require("bcrypt");
 const User=require("../models/user");
 const Farmer=require("../models/farmer");
-
 const Agroexpert=require("../models/agroexpert");
 var Token=require("../models/tokenverification");
 const jwt=require("jsonwebtoken");
@@ -76,11 +75,7 @@ exports.user_signup=(req,res,next) => {
                 city:req.body.city,
                 state:req.body.state,
                 pincode:req.body.pincode,
-                type:req.body.type,
-            
-            
-        
-    
+                type:req.body.type,        
         });
            user.save()
            
@@ -302,6 +297,95 @@ exports.user_view=(verifyToken ,(req, res) => {
         }
     });
 })
+
+// @route   GET api/profile
+// @desc    Get current users profile
+// @access  Private
+exports.view_profile=(
+    (req, res) => {
+      const errors = {};
+  
+      User.findOne({ user: req.user._id })
+        .then(user => {
+          if (!user) {
+            errors.nouser = 'There is no profile for this user';
+            return res.status(404).json(errors);
+          }
+          res.json(user);
+
+          if (user[0].type== "farmer"){
+            Farmer.findOne({ user: req.user._id })
+        .then(farmer => {res.json(farmer);}
+         )
+         }
+          
+          else if (user[0].type== "agricultureexpert")
+          {
+            Agroexpert.findOne({ agroexpert: req.user._id })
+        .then(agroexpert => {res.json(agroexpert);}
+        )
+          }
+        }
+        
+        )
+
+        .catch(err => res.status(404).json(err));
+        
+    }
+  )
+
+// @desc    Edit user profile
+// @access  Private
+exports.edit_profile=((req, res) => {
+     
+  
+      User.findOne({ user: req.user._id })
+      .then(user => {
+       
+        res.json(user);
+
+        if (req.body.username) user.username = req.body.username;
+        if (req.body.mobilenumber) user.mobilenumber = req.body.mobilenumber;
+        if (req.body.email) user.email = req.body.email;
+        if (req.body.street) user.street = req.body.street;
+        if (req.body.city) user.city = req.body.city;
+        if (req.body.state) user.state = req.body.state;
+        if (req.body.pincode) user.pincode = req.body.pincode;
+        
+        user.save()
+        if (user.type== "farmer"){
+          Farmer.findOne({ user: req.user._id })
+      .then(farmer => {res.json(farmer);
+    
+        if(req.body.latitude) farmer.latitude=req.body.latitude;
+        if(req.body.longitude) farmer.longitude=req.body.longitude;
+
+        farmer.save()
+    }
+       )
+       }
+        
+        else if (user.type== "agricultureexpert")
+        {
+          Agroexpert.findOne({ agroexpert: req.user._id })
+      .then(agroexpert => {res.json(agroexpert);
+    
+        if(req.body.education
+            ) agroexpert.education=req.body.education;
+
+            agroexpert.save()
+
+    }
+      )
+        }
+    
+    
+    })
+
+     
+    }
+)
+
 exports.user_logout=(req,res)=>{
     res.redirect('/users')
 }
